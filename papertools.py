@@ -26,8 +26,6 @@ def main():
     # Parse the arguments
     args = parser.parse_args()
 
-    if args.command == "setkey":
-        store_api_key()
     elif args.command == "rename":
         rename_pdfs(args.path)
     else:
