@@ -6,10 +6,10 @@ from openai import OpenAI
 import json
 
 # Global in memory API key
-API_KEY = str | None = None
+API_KEY = None
 
 # API KEY management
-def store_api_key(apikey: str):
+def store_api_key():
     # Prompt user to paste API key securely and keep it in memory for current session
     global API_KEY
     key = getpass.getpass("Enter your OpenAI API key: ").strip()
@@ -96,7 +96,7 @@ def rename_pdfs(folder_path):
 
     # Skip non-PDFs and already renamed files
     for filename in os.listdir(folder_path):
-        if filename.lower().endswith(".pdf"):
+        if not filename.lower().endswith(".pdf"):
             continue
         if filename.startswith("["):
             continue

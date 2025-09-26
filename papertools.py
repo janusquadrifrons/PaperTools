@@ -15,7 +15,6 @@ def main():
 
     # set key command
     key_parser = subparsers.add_parser("setkey", help="Set the OpenAI API key.")
-    key_parser.add_argument("apikey", help="Your OpenAI API key.")
 
     # rename command
     rename_parser = subparsers.add_parser("rename", help="Rename PDF files.")
@@ -28,7 +27,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "setkey":
-        store_api_key(args.apikey)
+        store_api_key()
     elif args.command == "rename":
         rename_pdfs(args.path)
     else:
