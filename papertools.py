@@ -26,7 +26,7 @@ def main():
     # Parse the arguments
     args = parser.parse_args()
 
-    elif args.command == "rename":
+    if  args.command == "rename":
         rename_pdfs(args.path)
     else:
         parser.print_help()

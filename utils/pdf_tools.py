@@ -114,7 +114,7 @@ def rename_pdfs(folder_path):
         try:
             surname, title, year = extract_metadata(pdf_path, apikey)
 
-            new_name = f"[ ] - {surname} - {title} ({year}).pdf"
+            new_name = f"[] - {surname} - {title} ({year}).pdf"
             new_path = os.path.join(folder_path, new_name)
 
             os.rename(pdf_path, new_path)
