@@ -5,7 +5,7 @@ import getpass # --- for secure input of API key
 from openai import OpenAI
 import json
 
-# Global in memory API key
+#Environment varible for OpenAI API key
 API_KEY = None
 
 # API KEY management
@@ -15,13 +15,17 @@ def store_api_key():
     key = getpass.getpass("Enter your OpenAI API key: ").strip()
     if key:
         API_KEY = key
+        os.environ["OPENAI_API_KEY"] = API_KEY
         print("API key stored successfully.")
     else:
         print("No API key entered.")
 
 def load_api_key() -> str | None:
     # Load API key from memory
-    return API_KEY
+    global API_KEY
+    if API_KEY:
+        return API_KEY
+    return os.environ.get("OPENAI_API_KEY")
 
 ## PDF Renaming
 # Helper Function - Extract until "Absract" section
@@ -89,10 +93,15 @@ def extract_metadata(pdf_path, apikey):
 
 # Rename PDFs
 def rename_pdfs(folder_path):
+    
     apikey = load_api_key()
     if not apikey:
-        print("Error: No API key found. Please set it using the 'set-key' command.")
-        return
+        print("Error: No API key found. Please set it using the 'setkey' command.")
+        store_api_key() # ask interactively
+        apikey = load_api_key()
+        if not apikey:
+            print("Error: API key is required to proceed. Please run 'setkey' command again.")
+            return
 
     # Skip non-PDFs and already renamed files
     for filename in os.listdir(folder_path):
@@ -102,12 +111,12 @@ def rename_pdfs(folder_path):
             continue
             
         pdf_path = os.path.join(folder_path, filename)
-        surname, title, year = extract_metadata(pdf_path, apikey)
-
-        new_name = f"[ ] - {surname} - {title} ({year}).pdf"
-        new_path = os.path.join(folder_path, new_name)
-
         try:
+            surname, title, year = extract_metadata(pdf_path, apikey)
+
+            new_name = f"[ ] - {surname} - {title} ({year}).pdf"
+            new_path = os.path.join(folder_path, new_name)
+
             os.rename(pdf_path, new_path)
             print(f"Renamed: {filename} -> {new_name}")
         except Exception as e:
