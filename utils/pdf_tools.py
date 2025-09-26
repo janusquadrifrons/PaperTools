@@ -4,6 +4,7 @@ import pdfplumber # --- for PDF text extraction
 import getpass # --- for secure input of API key
 from openai import OpenAI
 import json
+import unicodedata # --- for filename sanitization
 
 #Environment varible for OpenAI API key
 API_KEY = None
@@ -91,6 +92,20 @@ def extract_metadata(pdf_path, apikey):
     year = data.get("year", "n.d.")
     return surname, title, year
 
+# Helper Function - Sanitize Filename
+def sanitize_filename(name: str, max_len: int = 100) -> str:
+    # Normalize unicode
+    name = unicodedata.normalize("NFKC", name)
+    # Remove invalid characters
+    name = re.sub(r'[<>:"/\\|?*\x00-\x1F]', "_", name)
+    # Remove trailing dots/spaces
+    name = name.rstrip(". ")
+    # Trim to avoid hitting OS path limit after adding .pdf
+    if len(name) > max_len:
+        name = name[:max_len].rstrip()
+    return name
+
+
 # Rename PDFs
 def rename_pdfs(folder_path):
     
@@ -113,6 +128,11 @@ def rename_pdfs(folder_path):
         pdf_path = os.path.join(folder_path, filename)
         try:
             surname, title, year = extract_metadata(pdf_path, apikey)
+
+            # Sanitize components
+            surname = sanitize_filename(surname)
+            title = sanitize_filename(title)
+            year = sanitize_filename(year)
 
             new_name = f"[] - {surname} - {title} ({year}).pdf"
             new_path = os.path.join(folder_path, new_name)

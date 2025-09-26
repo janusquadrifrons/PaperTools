@@ -13,9 +13,6 @@ def main():
 
     subparsers = parser.add_subparsers(dest="command")
 
-    # set key command
-    key_parser = subparsers.add_parser("setkey", help="Set the OpenAI API key.")
-
     # rename command
     rename_parser = subparsers.add_parser("rename", help="Rename PDF files.")
     rename_parser.add_argument(
