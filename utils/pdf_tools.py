@@ -68,7 +68,7 @@ def ask_openai_for_metadata(text, apikey):
 
     return json.loads(response.choices[0].message.content)
 
-# Metafata Extraction
+# Metadata Extraction
 def extract_metadata(pdf_path, apikey):
     try:
         # Step 1: Try PDF metadata first
@@ -104,7 +104,6 @@ def sanitize_filename(name: str, max_len: int = 100) -> str:
     if len(name) > max_len:
         name = name[:max_len].rstrip()
     return name
-
 
 # Rename PDFs
 def rename_pdfs(folder_path):
