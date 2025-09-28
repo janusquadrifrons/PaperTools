@@ -63,6 +63,15 @@ python papertools.py rename --path <folder_path>
   ```bash
   python papertools.py rename --path "D:\Research\Papers"
   ```
+
+When you run `rename`, if the app cannot find an API key, it will prompt:
+
+```
+No API key found. You'll be prompted now (input is hidden).
+Enter your OpenAI API key:
+```
+
+Paste your key (hidden input), press Enter, and renaming will proceed.
   
 ### Create BibTex Files
 
@@ -77,15 +86,6 @@ with contents like :
   year   = {2020}
 }
 ```
-
-When you run `rename`, if the app cannot find an API key, it will prompt:
-
-```
-No API key found. You'll be prompted now (input is hidden).
-Enter your OpenAI API key:
-```
-
-Paste your key (hidden input), press Enter, and renaming will proceed.
 
 ## API Key Management
 
