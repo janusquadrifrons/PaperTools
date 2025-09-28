@@ -25,6 +25,11 @@ The first implemented function is `rename`, which automatically renames `.pdf` f
     2. **First pages until "Abstract"** text, parsed via the **OpenAI API**
 - Interactive prompt for the **OpenAI API key** if not already set.
 
+- **Create BibTeX files** (`createbib`)
+  - Generates a `.bib` file for each already-renamed `.pdf` (filenames starting with `[`).
+  - Extracts **author surname, title, year** from the filename itself.
+  - Output `.bib` base file uses the same base name as the `.pdf` file.
+  - Compatible with **ResearchRabbit** imports
 
 ## Requirements
 
@@ -58,6 +63,20 @@ python papertools.py rename --path <folder_path>
   ```bash
   python papertools.py rename --path "D:\Research\Papers"
   ```
+  
+### Create BibTex Files
+
+```bash
+python papertools.py createbib --path <folder_path>
+```
+with contents like :
+```bibtex
+@article{smith2020graph,
+  author = {Smith},
+  title  = {Graph Neural Networks},
+  year   = {2020}
+}
+```
 
 When you run `rename`, if the app cannot find an API key, it will prompt:
 
@@ -94,7 +113,7 @@ Each time you call the CLI, the app will ask you again if no key is found in the
   * `scoring`: quick evaluation and scoring within the given context
   * `summarize`: generate paper summaries
   * `extract-refs`: extract references section
-  * `bibtex`: export metadata to `.bib` format
+  * ✅ `createBib`: export metadata to `.bib` format
 * 🔒 Security:
 
   * The API key is never written to disk
