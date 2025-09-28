@@ -4,6 +4,7 @@ import argparse
 import os
 
 from utils.pdf_tools import rename_pdfs, store_api_key
+from utils.createBib import create_bib_files
 
 def main():
     parser = argparse.ArgumentParser(
@@ -19,12 +20,21 @@ def main():
         "--path", 
         default=".", 
         help="Path to the folder containing PDF files.")
+    
+    # createbib command
+    bib_parser = subparsers.add_parser("createbib", help="Create .bib files for PDFs.")
+    bib_parser.add_argument(
+        "--path", 
+        default=".", 
+        help="Path to the folder containing PDF files. Default is current directory.")
 
     # Parse the arguments
     args = parser.parse_args()
 
     if  args.command == "rename":
         rename_pdfs(args.path)
+    elif args.command == "createbib":
+        create_bib_files(args.path)
     else:
         parser.print_help()
 

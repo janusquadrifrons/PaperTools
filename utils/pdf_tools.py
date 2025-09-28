@@ -1,4 +1,4 @@
-import os
+import os # --- for file/path operations
 import re # --- for regular expressions
 import pdfplumber # --- for PDF text extraction
 import getpass # --- for secure input of API key
