@@ -72,7 +72,7 @@ Enter your OpenAI API key:
 ```
 
 Paste your key (hidden input), press Enter, and renaming will proceed.
-  
+
 ### Create BibTex Files
 
 ```bash
@@ -126,10 +126,11 @@ Each time you call the CLI, the app will ask you again if no key is found in the
 ## Quick Reminders (for me)
 
 * Main entry point: **`papertools.py`**
-* Utilities: **`utils/pdf_tools.py`**
+* Utilities: **`utils/pdf_tools.py`** **`utils/createBib.py`**
 * CLI arguments:
 
   * `rename` → runs the renaming
+  * `createBib` → runs .bib file creation
   * `--path` → specify folder of PDFs
 * API key:
 
